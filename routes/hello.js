@@ -1,12 +1,20 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-    var data={
-        title: 'Hello!',
-        content:'サンプル<br>this'
-    }
+router.get('/', (req, res, next) => {
+  var data = {
+    title: 'Hello!',
+    content: '※何か書いて送信して下さい。'
+  };
+  res.render('hello', data);
+});
+
+router.post('/post', (req, res, next) => {
+  var msg = req.body['message'];
+  var data = {
+    title: 'Hello!',
+    content: 'あなたは、「' + msg + '」と送信しました。'
+  };
   res.render('hello', data);
 });
 

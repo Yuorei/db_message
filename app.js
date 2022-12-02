@@ -9,6 +9,7 @@ var usersRouter = require('./routes/users');
 var hello = require('./routes/hello');
 
 var app = express();
+const session = require('express-session');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,7 +20,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/hello',hello);
@@ -39,5 +39,13 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+var session_opt = {
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false, 
+  cookie: { maxAge: 60 * 60 * 1000 }
+};
+app.use(session(session_opt));
 
 module.exports = app;
