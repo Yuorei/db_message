@@ -7,9 +7,16 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var hello = require('./routes/hello');
-
+// const session = require('express-session');
 var app = express();
-const session = require('express-session');
+
+// var session_opt = {
+//   secret: 'keyboard cat',
+//   resave: false,
+//   saveUninitialized: false, 
+//   cookie: { maxAge: 60 * 60 * 1000 }
+// };
+// app.use(session(session_opt));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -40,12 +47,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-var session_opt = {
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: false, 
-  cookie: { maxAge: 60 * 60 * 1000 }
-};
-app.use(session(session_opt));
+
 
 module.exports = app;
